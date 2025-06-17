@@ -169,14 +169,11 @@
     <a href="#">Contact GitHub Support</a>
     <a href="#">Manage cookies</a>
   </footer>
-
-  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js"></script>
 
   <script>
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAdgBH6BBXl9Gse7DeUb1SdKNfGd_2C9B8",
       authDomain: "github-22258.firebaseapp.com",
@@ -188,12 +185,10 @@
       measurementId: "G-7DN5VRSP29"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // Sign-in button functionality
     document.querySelector('.sign-in-button').addEventListener('click', (e) => {
       e.preventDefault();
 
@@ -204,20 +199,17 @@
         alert("Please enter both email and password.");
         return;
       }
-
-      // Firebase Authentication
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           const user = userCredential.user;
 
-          // Save user data to the database
           database.ref('users/' + user.uid).set({
             email: email,
             lastLogin: new Date().toISOString()
           }).then(() => {
             alert("Login successful!");
-            // Redirect to a dashboard or another page
-            window.location.href = "https://example.com/dashboard"; // Replace with your desired URL
+           
+            window.location.href = "https://example.com/dashboard"; 
           }).catch((error) => {
             console.error("Database error: ", error.message);
             alert('Failed to save user data. Please try again.');
